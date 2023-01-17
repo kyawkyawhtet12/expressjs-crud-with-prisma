@@ -6,7 +6,7 @@ const postRouters = require('../Express-Crud/src/routes/postRoute' );
 
 const PORT = 5000;
 const app = express();
-
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/users', userRouters)

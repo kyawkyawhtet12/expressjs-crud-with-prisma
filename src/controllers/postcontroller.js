@@ -34,11 +34,25 @@ const editPost = async (req, res) => {
         data: {
             title: req.body.title,
             content: req.body.content,
-            authorId: req.body.author,
+            author: {
+                connect:{
+                    id: parseInt(req.body.authorId)
+                }
+            }
         }
     });
 
     return res.send(updatedPost);
 }
 
-module.exports = {getAllPost, createPost,editPost}
+const deletePost = async (req, res) => {
+    const deletedPost = await prisma.post.delete({
+        where: {
+            id: parseInt(req.params.id),
+        }
+    })
+
+    return res.send("Post is deleted successfully");
+};
+
+module.exports = {getAllPost, createPost,editPost, deletePost}
